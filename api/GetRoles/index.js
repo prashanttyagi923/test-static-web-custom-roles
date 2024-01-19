@@ -1,9 +1,10 @@
 const fetch = require('node-fetch').default;
-
+const jwt = require('jsonwebtoken');
 // add role names to this object to map them to group ids in your AAD tenant
 const roleGroupMappings = {
     'admin': '21a96550-aa02-486e-9297-e6e51b6398fc',
-    'reader': '33bb071c-118d-40d1-a5d7-7ced5900b973'
+    'reader': '33bb071c-118d-40d1-a5d7-7ced5900b973',
+    'sa': '4a834af2-9fc7-456b-81c3-8964313274df'
 };
 
 module.exports = async function (context, req) {
@@ -22,20 +23,31 @@ module.exports = async function (context, req) {
 }
 
 async function isUserInGroup(groupId, bearerToken) {
-    const url = new URL('https://graph.microsoft.com/v1.0/me/memberOf');
-    url.searchParams.append('$filter', `id eq '${groupId}'`);
-    const response = await fetch(url, {
-        method: 'GET',
-        headers: {
-            'Authorization': `Bearer ${bearerToken}`
-        },
-    });
-
-    if (response.status !== 200) {
+    const decodedToken = jwt.decode(token);
+    const claims = decodedToken.claims;
+    
+    if(groupId === '33bb071c-118d-40d1-a5d7-7ced5900b973'){
+        return true;
+    }
+    else if(groupId === '21a96550-aa02-486e-9297-e6e51b6398fc')
+    {return true;}
+    else {
         return false;
     }
+    // const url = new URL('https://graph.microsoft.com/v1.0/me/memberOf');
+    // url.searchParams.append('$filter', `id eq '${groupId}'`);
+    // const response = await fetch(url, {
+    //     method: 'GET',
+    //     headers: {
+    //         'Authorization': `Bearer ${bearerToken}`
+    //     },
+    // });
 
-    const graphResponse = await response.json();
-    const matchingGroups = graphResponse.value.filter(group => group.id === groupId);
-    return matchingGroups.length > 0;
+    // if (response.status !== 200) {
+    //     return false;
+    // }
+
+    // const graphResponse = await response.json();
+    // const matchingGroups = graphResponse.value.filter(group => group.id === groupId);
+    // return matchingGroups.length > 0;
 }

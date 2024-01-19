@@ -7,6 +7,10 @@
         {
             "route": "/authenticated/*",
             "allowedRoles": [ "authenticated" ]
+        },
+        {
+            "route": "/sa/*",
+            "allowedRoles": [ "sa" ]
         }
     ],
     "auth": {
@@ -15,9 +19,9 @@
             "azureActiveDirectory": {
                 "userDetailsClaim": "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name",
                 "registration": {
-                    "openIdIssuer": "https://login.microsoftonline.com/<YOUR_AAD_TENANT_ID>",
-                    "clientIdSettingName": "AAD_CLIENT_ID",
-                    "clientSecretSettingName": "AAD_CLIENT_SECRET"
+                    "openIdIssuer": "https://login.microsoftonline.com/4454f355-a6f0-46a6-98b9-b5b79d8acb83",
+                    "clientIdSettingName": "242842e8-ad03-4c81-9807-ed22c2da7f45",
+                    "clientSecretSettingName": "Hza7Q~Qpmifl6yZYVpErqanqckgOFTeJpg0LA"
                 },
                 "login": {
                     "loginParameters": [
