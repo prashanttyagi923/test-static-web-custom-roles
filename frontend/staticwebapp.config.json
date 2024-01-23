@@ -5,7 +5,7 @@
             "allowedRoles": [ "admin" ]
         },
         {
-            "route": "/authenticated/*",
+            "route": "/*",
             "allowedRoles": [ "authenticated" ]
         },
         {
@@ -13,6 +13,12 @@
             "allowedRoles": [ "sa" ]
         }
     ],
+    "responseOverrides": {
+      "401": {
+        "statusCode": 302,
+        "redirect": "/.auth/login/aad"
+      }
+    },
     "auth": {
         "rolesSource": "/api/GetRoles",
         "identityProviders": {
