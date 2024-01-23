@@ -5,12 +5,12 @@
             "allowedRoles": [ "admin" ]
         },
         {
-            "route": "/*",
-            "allowedRoles": [ "authenticated" ]
-        },
-        {
             "route": "/sa/*",
             "allowedRoles": [ "sa" ]
+        },
+        {
+            "route": "/*",
+            "allowedRoles": [ "authenticated" ]
         }
     ],
     "responseOverrides": {
